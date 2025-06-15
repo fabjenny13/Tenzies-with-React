@@ -12,6 +12,7 @@ function App() {
   const [diceNums, setDiceNums] = useState(new Array(10).fill(0))
   const [diceHeld, setDiceHeld] = useState(new Array(10).fill(false))
   const [gameWon, setGameWon] = useState(false)
+  const [isReset, setIsReset] = useState(false)
 
 
   const arr = new Array(5).fill(0);
@@ -33,6 +34,19 @@ function App() {
 
     return isWon;
   }
+
+  function resetGame() {
+    setGameWon(false)
+    setIsReset(true)
+    setDiceHeld(new Array(10).fill(false))
+  }
+
+  useEffect(() => {
+    if (!gameWon && isReset) {
+      rollDice()
+      setIsReset(false)
+    }
+  }, [diceHeld, isReset])
 
   function rollDice() {
     let newNums = diceNums.map((ele, ind) => ele = diceHeld[ind] ? ele : Math.floor(Math.random() * (9-1) + 1))
@@ -85,6 +99,8 @@ function App() {
       <button
       onClick = {rollDice}
       >Roll</button>
+
+      <button onClick = {resetGame}>Reset Game</button>
     </div>
   )
 }
