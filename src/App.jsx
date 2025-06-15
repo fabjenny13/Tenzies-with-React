@@ -13,6 +13,7 @@ function App() {
   const [diceHeld, setDiceHeld] = useState(new Array(10).fill(false))
   const [gameWon, setGameWon] = useState(false)
   const [isReset, setIsReset] = useState(false)
+  const [showConfetti, setShowConfetti] = useState(false)
 
 
   const arr = new Array(5).fill(0);
@@ -32,7 +33,9 @@ function App() {
       diceNums.map(ele => (ele == lastNum && isWon ? isWon = true : isWon = false))
     }
 
+    setGameWon(isWon);
     return isWon;
+    
   }
 
   function resetGame() {
@@ -62,20 +65,21 @@ function App() {
 
   useEffect(rollDice, [])
 
-  useEffect(() => {checkWin() ? setGameWon(true) : setGameWon(false)}, [diceHeld])
+  useEffect(() => {checkWin() ? setShowConfetti(true): {}}, [diceHeld])
 
   useEffect(() => {
-    if(gameWon){
-      const timer = setTimeout(() => setGameWon(false), 6000);
+
+    if(showConfetti){
+      const timer = setTimeout(() => setShowConfetti(false), 6000);
       return () => clearTimeout(timer);
     }
-    }, [gameWon])
+    }, [showConfetti])
 
   
   
   return (
     <div className = "container">
-      {gameWon && <Confetti/>}
+      {showConfetti && <Confetti />}
       <h1>TENZIES</h1>
       <br />
       <div>
@@ -100,12 +104,17 @@ function App() {
 
       <br />
       <br />
-      <button className = "button"
+
+      {
+        gameWon ? <h2>YOU WIN!</h2> :
+      <button className = "roll-button"
       onClick = {rollDice}
       >Roll</button>
+      }
 
       <br />
-      <button onClick = {resetGame}>Reset Game</button>
+      <button className = "reset-button"
+      onClick = {resetGame}>Reset Game</button>
     </div>
   )
 }

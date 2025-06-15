@@ -11,6 +11,7 @@ function Dice(props) {
                 backgroundColor: (props.onHold) ? '#009933' : '#2e2e2e'
             }
         }
+        
         onClick = {() => {
             props.handleClick(props.index);
         }}

@@ -14,8 +14,8 @@ body {
 
 }
 
-.button {
-    background-color: aqua;
+.roll-button {
+    background-color: #663300;
     width: 100px;
     height: 40px;
     border: 2px solid #333;
@@ -23,5 +23,29 @@ body {
     font-family: monospace;
     font-size: 24px;
     text-transform: uppercase;
+    color: whitesmoke;
 
+}
+
+.reset-button {
+    background-color: #9e7348;
+    width: 200px;
+    height: 40px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 24px;
+    text-transform: uppercase;
+    color: whitesmoke;
+    margin: 20px;
+}
+
+.roll-button:hover {
+    background-color: #482501;
+    /*box-shadow: 0 0 10px #5a2d00 */
+
+}
+
+.reset-button:hover {
+    box-shadow: 0 0 10px #7e433b;
 }

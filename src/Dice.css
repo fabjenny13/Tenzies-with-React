@@ -9,6 +9,8 @@
     margin: 5px;
     padding: 10px 20px;
     color: wheat;
+}
 
-
+.dice-button:hover {
+    box-shadow: 0 0 10px #2e2e2e;
 }
