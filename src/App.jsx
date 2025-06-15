@@ -69,7 +69,8 @@ function App() {
   }
 
 
-  function showPopUp() {
+  function showPopUp(name) {
+    setName(name)
     setShowPopup(true)
   }
 
