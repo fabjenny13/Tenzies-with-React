@@ -2,7 +2,7 @@ import {useState, useEffect} from "react"
 import Confetti from 'react-confetti'
 
 import Dice from "./Dice"
-
+import "./App.css"
 
 
 
@@ -74,9 +74,11 @@ function App() {
   
   
   return (
-    <div>
+    <div className = "container">
       {gameWon && <Confetti/>}
       <h1>TENZIES</h1>
+      <br />
+      <div>
       <div>
         {arr.map((ele, ind) => <Dice 
         number = {diceNums[ind]} 
@@ -94,12 +96,15 @@ function App() {
         onHold = {diceHeld[ind + 5]}/>
         )}
       </div>
+      </div>
 
       <br />
-      <button
+      <br />
+      <button className = "button"
       onClick = {rollDice}
       >Roll</button>
 
+      <br />
       <button onClick = {resetGame}>Reset Game</button>
     </div>
   )

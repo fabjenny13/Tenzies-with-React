@@ -1,14 +1,14 @@
 import {useState} from 'react'
 
-
+import "./Dice.css"
 
 function Dice(props) {
 
     return (
-        <button
+        <button className = "dice-button"
         style = {
             {
-                backgroundColor: (props.onHold) ? '#11ef39' : '#e8e1cf'
+                backgroundColor: (props.onHold) ? '#009933' : '#2e2e2e'
             }
         }
         onClick = {() => {
