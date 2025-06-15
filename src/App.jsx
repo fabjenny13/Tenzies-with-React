@@ -2,6 +2,8 @@ import {useState, useEffect} from "react"
 import Confetti from 'react-confetti'
 
 import Dice from "./Dice"
+import Form from "./Form"
+import Popup from "./Popup"
 import "./App.css"
 
 
@@ -14,6 +16,9 @@ function App() {
   const [gameWon, setGameWon] = useState(false)
   const [isReset, setIsReset] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
+  const [gameStarted, setGameStarted] = useState(false)
+  const [name, setName] = useState("Player")
+  const [showPopup, setShowPopup] = useState(false)
 
 
   const arr = new Array(5).fill(0);
@@ -44,12 +49,6 @@ function App() {
     setDiceHeld(new Array(10).fill(false))
   }
 
-  useEffect(() => {
-    if (!gameWon && isReset) {
-      rollDice()
-      setIsReset(false)
-    }
-  }, [diceHeld, isReset])
 
   function rollDice() {
     let newNums = diceNums.map((ele, ind) => ele = diceHeld[ind] ? ele : Math.floor(Math.random() * (9-1) + 1))
@@ -63,6 +62,20 @@ function App() {
     setDiceHeld(newArr)
   }
 
+
+  function startGame() {
+    setGameStarted(true)
+    setShowPopup(false)
+  }
+
+
+  function showPopUp() {
+    setShowPopup(true)
+  }
+
+
+
+
   useEffect(rollDice, [])
 
   useEffect(() => {checkWin() ? setShowConfetti(true): {}}, [diceHeld])
@@ -75,16 +88,49 @@ function App() {
     }
     }, [showConfetti])
 
+
+  useEffect(() => {
+    if (!gameWon && isReset) {
+      rollDice()
+      setIsReset(false)
+    }
+    }, [diceHeld, isReset])
+
   
   
   return (
-    <div className = "container">
+
+    <div>
+      
+      {
+        (!gameStarted && !showPopup) &&(
+          <div className = "container">
+        <h1>TENZIES</h1>
+        <Form onSubmit = {showPopUp}></Form>
+        </div>
+      )
+      }
+
+     
+      {
+      showPopup && (
+        <div className = "container">
+            <Popup onClick = {startGame} name = {name}></Popup>
+        </div>
+      )  
+      }
+      
+
+    { gameStarted && 
+      ( <div className = "container">
       {showConfetti && <Confetti />}
       <h1>TENZIES</h1>
+      
       <br />
       <div>
       <div>
         {arr.map((ele, ind) => <Dice 
+        key={ind}
         number = {diceNums[ind]} 
         index = {ind} 
         handleClick = {handleDiceClick} 
@@ -94,6 +140,7 @@ function App() {
 
       <div>
         {arr.map((ele, ind) => <Dice 
+        key={ind + 5}
         number = {diceNums[ind + 5]} 
         index = {ind + 5} 
         handleClick = {handleDiceClick} 
@@ -115,6 +162,9 @@ function App() {
       <br />
       <button className = "reset-button"
       onClick = {resetGame}>Reset Game</button>
+    </div> )
+    }
+
     </div>
   )
 }

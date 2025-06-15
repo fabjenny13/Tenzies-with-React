@@ -1,9 +1,11 @@
-function Form(){
+
+function Form(props){
     return (
         <div>
-            <form>
+            <form 
+            onSubmit={props.onSubmit}>
                 <p>Hey Player! What's your name?</p>
-                <label htmlFor=""></label>
+                <input type="text"></input>
             </form>
         </div>
     )
